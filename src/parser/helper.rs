@@ -71,14 +71,6 @@ pub struct Number<'a> {
     pub carrier: Option<Cow<'a, str>>,
 }
 
-pub fn eof(i: &str) -> IResult<&str, ()> {
-    if i.is_empty() {
-        Ok((i, ()))
-    } else {
-        Err(nom::Err::Error(make_error(i, ErrorKind::LengthValue)))
-    }
-}
-
 pub fn punctuation(i: &str) -> IResult<&str, char> {
     one_of("-x\u{2010}\u{2011}\u{2012}\u{2013}\u{2014}\u{2015}\u{2212}\u{30FC}\u{FF0D}-\u{FF0F} \u{00A0}\u{00AD}\u{200B}\u{2060}\u{3000}()\u{FF08}\u{FF09}\u{FF3B}\u{FF3D}.[]/~\u{2053}\u{223C}\u{FF5E}")(i)
 }

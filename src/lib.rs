@@ -17,9 +17,6 @@
 #[macro_use]
 extern crate lazy_static;
 
-#[macro_use]
-extern crate nom;
-
 #[cfg(test)]
 #[macro_use]
 extern crate doc_comment;
