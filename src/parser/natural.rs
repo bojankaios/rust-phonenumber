@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use nom::error::{Error, ErrorKind};
 use nom::IResult;
 
 use crate::consts;
@@ -21,6 +22,18 @@ pub fn phone_number(input: &str) -> IResult<&str, Number> {
     let i = extract(input)?.1;
 
     let extension = consts::EXTN_PATTERN.captures(i);
+
+    if let Some(c) = extension.as_ref() {
+        match (c.get(0), c.get(2)) {
+            (Some(_), Some(_)) => {}
+            _ => {
+                return Err(nom::Err::Failure(Error::new(
+                    "invalid phone number",
+                    ErrorKind::Fail,
+                )));
+            }
+        }
+    }
 
     Ok((
         "",
